@@ -274,7 +274,7 @@ nav {
 
 /* Phone shell */
 .phone {
-  width: 260px; height: 520px;
+  width: 260px; height: 540px;
   border-radius: 44px;
   border: 2.5px solid rgba(255,215,0,0.6);
   position: relative; overflow: hidden;
@@ -284,66 +284,155 @@ nav {
     0 30px 80px rgba(0,0,0,0.8),
     0 0 60px rgba(255,215,0,0.08);
   background: #000;
+  display: flex; flex-direction: column;
 }
 
 /* Side button details */
 .phone::before {
   content: '';
-  position: absolute; right: -4px; top: 100px;
+  position: absolute; right: -4px; top: 120px;
   width: 3px; height: 50px;
   background: rgba(255,215,0,0.4);
   border-radius: 0 4px 4px 0;
+  z-index: 10;
+}
+.phone::after {
+  content: '';
+  position: absolute; left: -4px; top: 90px;
+  width: 3px; height: 34px;
+  background: rgba(255,215,0,0.35);
+  border-radius: 4px 0 0 4px;
+  z-index: 10;
 }
 
 /* CEO photo fills phone */
 .phone-bg-img {
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover; object-position: center 15%;
-  border-radius: 42px; z-index: 0;
+  z-index: 0;
 }
 
 /* Gradient overlay — heavy at top and bottom, clear in middle */
 .phone-overlay {
-  position: absolute; inset: 0; z-index: 1; border-radius: 42px;
+  position: absolute; inset: 0; z-index: 1;
   background: linear-gradient(
     to bottom,
-    rgba(0,0,0,0.82) 0%,
-    rgba(0,0,0,0.3)  22%,
-    rgba(0,0,0,0.0)  45%,
-    rgba(0,0,0,0.15) 62%,
-    rgba(0,0,0,0.78) 80%,
-    rgba(0,0,0,0.95) 100%
+    rgba(0,0,0,0.90) 0%,
+    rgba(0,0,0,0.55) 18%,
+    rgba(0,0,0,0.15) 42%,
+    rgba(0,0,0,0.2)  60%,
+    rgba(0,0,0,0.82) 82%,
+    rgba(0,0,0,0.97) 100%
   );
 }
 
+/* ── TOP STATUS AREA (notch + status bar + time) */
+.phone-top-area {
+  position: relative; z-index: 5;
+  display: flex; flex-direction: column;
+  background: transparent;
+  flex-shrink: 0;
+}
+
+/* Notch row — notch centered with carrier left and battery/signal right */
+.phone-notch-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 12px 0;
+  height: 34px;
+}
+.phone-carrier {
+  font-size: 0.52rem; font-weight: 700; color: rgba(255,255,255,0.9);
+  letter-spacing: 0.02em;
+}
 /* Dynamic island notch */
 .phone-notch {
-  position: relative; z-index: 5;
-  width: 100px; height: 28px;
+  width: 90px; height: 26px;
   background: #000;
-  border-radius: 0 0 20px 20px;
-  margin: 0 auto;
-  display: flex; align-items: center; justify-content: center; gap: 10px;
+  border-radius: 0 0 18px 18px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  position: absolute; left: 50%; transform: translateX(-50%); top: 0;
 }
-/* Camera & sensor dots in notch */
 .phone-notch::before {
   content: '';
-  width: 8px; height: 8px; background: #1a1a1a;
+  width: 7px; height: 7px; background: #1a1a1a;
   border-radius: 50%; border: 1.5px solid #333;
-  box-shadow: inset 0 0 0 2px #0a0a0a;
 }
 .phone-notch::after {
   content: '';
-  width: 12px; height: 12px; background: #111;
+  width: 11px; height: 11px; background: #111;
   border-radius: 50%; border: 1.5px solid #2a2a2a;
   box-shadow: 0 0 6px rgba(130,200,255,0.2);
+}
+.phone-status-icons {
+  display: flex; align-items: center; gap: 4px;
+}
+.phone-5g {
+  font-size: 0.44rem; font-weight: 900; color: rgba(255,255,255,0.9);
+  letter-spacing: -0.03em;
+}
+.phone-signal-icon {
+  display: flex; align-items: flex-end; gap: 1.5px; height: 10px;
+}
+.phone-signal-icon span {
+  display: block; width: 2px; background: rgba(255,255,255,0.85); border-radius: 1px;
+}
+.phone-signal-icon span:nth-child(1) { height: 4px; }
+.phone-signal-icon span:nth-child(2) { height: 6px; }
+.phone-signal-icon span:nth-child(3) { height: 8px; }
+.phone-signal-icon span:nth-child(4) { height: 10px; }
+.phone-battery-icon {
+  display: flex; align-items: center; gap: 1px;
+}
+.phone-battery-body {
+  width: 17px; height: 9px; border: 1.5px solid rgba(255,255,255,0.7);
+  border-radius: 2px; position: relative; overflow: hidden;
+}
+.phone-battery-fill {
+  position: absolute; top: 1px; left: 1px; bottom: 1px;
+  width: 70%; background: #4ade80; border-radius: 1px;
+}
+.phone-battery-tip {
+  width: 2px; height: 5px; background: rgba(255,255,255,0.6);
+  border-radius: 0 1px 1px 0;
+}
+
+/* Time + nav bar row */
+.phone-nav-bar {
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(20px) saturate(150%);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 4px 12px 6px;
+  display: flex; align-items: center; justify-content: center;
+}
+.phone-nav-bar-text {
+  font-size: 0.58rem; font-weight: 800;
+  color: rgba(255,255,255,0.95); letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Clock display area */
+.phone-clock-area {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 14px 12px 8px;
+  gap: 2px;
+}
+.phone-clock {
+  font-size: 2.2rem; font-weight: 300;
+  color: #fff;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+}
+.phone-date {
+  font-size: 0.56rem; color: rgba(255,255,255,0.7);
+  font-weight: 500; letter-spacing: 0.04em;
 }
 
 /* Screen content */
 .phone-screen {
-  padding: 8px 13px 16px;
-  height: calc(100% - 28px);
+  padding: 0 13px 14px;
+  flex: 1;
   display: flex; flex-direction: column;
   position: relative; z-index: 2;
   overflow: hidden;
@@ -351,22 +440,22 @@ nav {
   box-sizing: border-box;
 }
 /* Spacer is flexible but won't collapse below face area */
-.phone-spacer { flex: 1; min-height: 60px; }
+.phone-spacer { flex: 1; min-height: 30px; }
 
-/* ── Status bar (grey readable) */
+/* ── App nav bar inside phone (Shopify ZeQuoz store) */
 .phone-header {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 6px 4px 8px;
-  background: rgba(30,30,30,0.75);
+  padding: 5px 4px 7px;
+  background: rgba(25,25,25,0.80);
   backdrop-filter: blur(12px) saturate(180%);
-  border-radius: 12px;
-  margin-bottom: 0;
+  border-radius: 10px;
+  margin-bottom: 4px;
   border: 1px solid rgba(255,255,255,0.06);
 }
 .phone-shopify-logo { display: flex; align-items: center; gap: 5px; }
 .phone-shopify-wordmark {
-  font-size: 0.62rem; font-weight: 800;
-  color: #c8d8b0; /* muted sage – readable on grey */
+  font-size: 0.58rem; font-weight: 800;
+  color: #c8d8b0;
   letter-spacing: 0.04em;
 }
 
@@ -382,7 +471,7 @@ nav {
   background: rgba(22,163,74,0.2);
   border: 1px solid rgba(34,197,94,0.4);
   border-radius: 999px; padding: 2px 8px;
-  font-size: 0.5rem; font-weight: 800; color: #4ade80;
+  font-size: 0.48rem; font-weight: 800; color: #4ade80;
   letter-spacing: 0.08em;
 }
 .phone-live-badge::before {
@@ -399,7 +488,7 @@ nav {
   display: flex; justify-content: space-around; align-items: center;
   background: rgba(10,10,10,0.7);
   border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 12px; padding: 8px 10px; margin-bottom: 8px;
+  border-radius: 12px; padding: 7px 10px; margin-bottom: 7px;
   backdrop-filter: blur(16px);
 }
 .phone-stat { display: flex; flex-direction: column; align-items: center; gap: 2px; }
@@ -439,6 +528,101 @@ nav {
   background: radial-gradient(circle, rgba(74,222,128,0.1), transparent 70%);
   pointer-events: none; z-index: 0;
 }
+/* ─── MINI RESULTS below CEO ────────────────────────────────── */
+#mini-results {
+  padding: 50px 0; background: var(--bg3);
+}
+.mini-results-inner { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+.mini-results-grid {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 16px;
+  margin-top: 32px;
+}
+@media (max-width: 700px) { .mini-results-grid { grid-template-columns: repeat(2,1fr); } }
+.mini-result-card {
+  background: var(--card); border: 1px solid var(--glass-border);
+  border-radius: 12px; padding: 18px 14px; text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.mini-result-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px var(--accent-dim); }
+.mini-result-num { font-size: 1.8rem; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 6px; }
+.mini-result-desc { font-size: 0.72rem; color: var(--text2); }
+
+/* ─── CONSULTATION SECTION ──────────────────────────────────── */
+#consultation {
+  padding: 90px 0;
+  background: radial-gradient(ellipse at 60% 50%, rgba(255,215,0,0.06) 0%, transparent 70%);
+  position: relative; overflow: hidden;
+}
+.consult-inner { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+.consult-badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--accent-dim); border: 1px solid var(--accent);
+  border-radius: 999px; padding: 8px 20px; margin-bottom: 28px;
+  font-size: 0.8rem; font-weight: 800; color: var(--accent);
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.consult-price-tag {
+  background: var(--accent); color: #000;
+  padding: 4px 14px; border-radius: 999px; font-size: 0.9rem;
+  font-weight: 900;
+}
+.consult-title {
+  font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 900;
+  line-height: 1.15; margin-bottom: 12px;
+}
+.consult-sub { font-size: 0.95rem; color: var(--text2); margin-bottom: 36px; line-height: 1.7; }
+.consult-form { display: flex; flex-direction: column; gap: 14px; }
+.consult-input {
+  width: 100%; background: var(--card); border: 1px solid var(--glass-border);
+  color: var(--text); padding: 14px 18px; border-radius: 12px;
+  font-size: 0.92rem; outline: none; font-family: inherit;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+.consult-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); }
+.consult-input::placeholder { color: var(--text2); }
+.consult-select {
+  width: 100%; background: var(--card); border: 1px solid var(--glass-border);
+  color: var(--text); padding: 14px 18px; border-radius: 12px;
+  font-size: 0.92rem; outline: none; font-family: inherit; cursor: pointer;
+  transition: border-color 0.25s;
+  -webkit-appearance: none; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23FFD700' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 16px center;
+  padding-right: 40px;
+}
+.consult-select:focus { border-color: var(--accent); }
+.consult-select option { background: var(--bg3); color: var(--text); }
+.btn-consult {
+  background: var(--accent); color: #000; padding: 16px 32px;
+  border-radius: 12px; font-weight: 900; font-size: 0.95rem;
+  cursor: pointer; border: none; letter-spacing: 0.04em;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 0 40px var(--accent-glow);
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  font-family: inherit;
+}
+.btn-consult:hover { transform: translateY(-2px); box-shadow: 0 0 60px var(--accent-glow); }
+.consult-note { font-size: 0.76rem; color: var(--text2); margin-top: 6px; text-align: center; }
+.consult-who {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--card); border: 1px solid var(--glass-border);
+  border-radius: 14px; padding: 16px 20px; margin-top: 28px;
+}
+.consult-avatar {
+  width: 52px; height: 52px; border-radius: 50%;
+  border: 2px solid var(--accent); overflow: hidden; flex-shrink: 0;
+  background: var(--bg3); display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem;
+}
+.consult-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.consult-who-text { flex: 1; }
+.consult-who-name { font-size: 0.95rem; font-weight: 800; margin-bottom: 2px; }
+.consult-who-role { font-size: 0.74rem; color: var(--text2); }
+.consult-success {
+  display: none; text-align: center; padding: 20px;
+  background: var(--accent-dim); border: 1px solid var(--accent);
+  border-radius: 12px; color: var(--accent); font-weight: 700; margin-top: 10px;
+}
 
 /* ─── Section Headings ──────────────────────────────────────── */
 .section-tag {
@@ -455,11 +639,17 @@ nav {
 
 /* ─── SERVICES ──────────────────────────────────────────────── */
 #services { background: var(--bg2); }
-.services-header { margin-bottom: 60px; }
-.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+.services-header { margin-bottom: 48px; }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+@media (max-width: 900px) { .services-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 500px)  { .services-grid { grid-template-columns: 1fr 1fr; gap: 10px; } }
 .service-card {
   background: var(--card); border: 1px solid var(--glass-border);
-  border-radius: var(--radius); padding: 36px 28px;
+  border-radius: 14px; padding: 22px 18px;
   position: relative; overflow: hidden;
   transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
@@ -468,21 +658,21 @@ nav {
   background: linear-gradient(90deg, transparent, var(--accent), transparent);
   opacity: 0; transition: opacity 0.3s;
 }
-.service-card:hover { transform: translateY(-6px); border-color: var(--accent); box-shadow: 0 20px 60px var(--accent-dim); }
+.service-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 16px 40px var(--accent-dim); }
 .service-card:hover::before { opacity: 1; }
-.service-icon { font-size: 2.2rem; margin-bottom: 18px; }
+.service-icon { font-size: 1.8rem; margin-bottom: 12px; }
 .service-badge {
-  display: inline-block; padding: 3px 10px; border-radius: 999px;
-  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em;
+  display: inline-block; padding: 2px 8px; border-radius: 999px;
+  font-size: 0.58rem; font-weight: 700; letter-spacing: 0.08em;
   text-transform: uppercase; background: var(--accent-dim);
   color: var(--accent); border: 1px solid var(--glass-border);
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
-.service-title { font-size: 1.15rem; font-weight: 800; margin-bottom: 12px; }
-.service-desc { font-size: 0.88rem; color: var(--text2); line-height: 1.7; }
-.service-features { list-style: none; margin-top: 20px; display: flex; flex-direction: column; gap: 8px; }
-.service-features li { font-size: 0.82rem; color: var(--text2); display: flex; align-items: center; gap: 10px; }
-.service-features li::before { content: '◆'; font-size: 0.45rem; color: var(--accent); flex-shrink: 0; }
+.service-title { font-size: 0.92rem; font-weight: 800; margin-bottom: 8px; line-height: 1.3; }
+.service-desc { font-size: 0.78rem; color: var(--text2); line-height: 1.6; }
+.service-features { list-style: none; margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
+.service-features li { font-size: 0.74rem; color: var(--text2); display: flex; align-items: center; gap: 8px; }
+.service-features li::before { content: '◆'; font-size: 0.4rem; color: var(--accent); flex-shrink: 0; }
 
 /* ─── RESULTS ───────────────────────────────────────────────── */
 #results { position: relative; overflow: hidden; }
@@ -520,24 +710,24 @@ nav {
   display: flex; justify-content: center; align-items: center; position: relative;
 }
 .ceo-photo {
-  width: 300px; height: 380px; border-radius: 24px;
+  width: 200px; height: 250px; border-radius: 20px;
   border: 2px solid var(--accent);
   background: var(--bg3);
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
   position: relative; overflow: hidden;
-  box-shadow: 0 0 80px rgba(255,215,0,0.15);
+  box-shadow: 0 0 50px rgba(255,215,0,0.12);
 }
 .ceo-photo::before {
   content: ''; position: absolute; inset: 0;
   background: linear-gradient(145deg, var(--accent-dim), transparent 60%);
 }
-.ceo-photo-icon { font-size: 5rem; position: relative; z-index: 1; }
+.ceo-photo-icon { font-size: 4rem; position: relative; z-index: 1; }
 .ceo-photo-label { font-size: 0.75rem; color: var(--text2); letter-spacing: 0.1em; text-transform: uppercase; z-index: 1; }
 .ceo-corner {
-  position: absolute; bottom: -12px; right: -12px; width: 80px; height: 80px;
+  position: absolute; bottom: -10px; right: -10px; width: 60px; height: 60px;
   background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center;
-  font-size: 0.7rem; font-weight: 900; color: #000; text-align: center; line-height: 1.2;
-  box-shadow: 0 0 30px var(--accent-glow);
+  font-size: 0.6rem; font-weight: 900; color: #000; text-align: center; line-height: 1.2;
+  box-shadow: 0 0 20px var(--accent-glow);
 }
 .ceo-content .section-tag { margin-top: 0; }
 .ceo-name { font-size: 2rem; font-weight: 900; margin-bottom: 4px; }
@@ -635,15 +825,12 @@ footer {
   section { padding: 70px 0; }
   .hero-stats { gap: 20px; }
 
-  /* Phone — tablet size: slightly smaller but keep proportions */
-  .phone { width: 220px; height: 450px; border-radius: 38px; }
-  .phone-bg-img { border-radius: 36px; }
-  .phone-overlay { border-radius: 36px; }
-  .phone-notch { width: 90px; height: 26px; }
-  .phone-screen { padding: 7px 11px 13px; }
+  /* Phone — tablet size */
+  .phone { width: 220px; height: 460px; border-radius: 38px; }
+  .phone-clock { font-size: 1.8rem; }
 }
 
-/* ── Mobile (≤600px): full responsive phone that always looks good */
+/* ── Mobile (≤600px) */
 @media (max-width: 600px) {
   .hero-title { font-size: 2rem; }
   .hero-ctas { flex-direction: column; }
@@ -652,12 +839,9 @@ footer {
   .footer-inner { flex-direction: column; text-align: center; }
   .footer-links { justify-content: center; }
 
-  /* Hero section — remove top padding clash */
   #hero { padding-top: calc(var(--nav-h) + 30px); }
 
-  /* Phone mockup on mobile: use vw so it always fits the screen */
   .phone-outer {
-    /* flatten the 3D tilt slightly on small screens */
     transform: rotateY(-5deg) rotateX(2deg) scale(1);
     filter: drop-shadow(0 20px 40px rgba(0,0,0,0.7)) drop-shadow(0 0 20px rgba(255,215,0,0.1));
   }
@@ -668,50 +852,43 @@ footer {
 
   .phone {
     width: min(240px, 64vw);
-    height: min(490px, 128vw);
+    height: min(500px, 130vw);
     border-radius: 40px;
   }
-  .phone-bg-img  { border-radius: 38px; object-position: center 10%; }
-  .phone-overlay { border-radius: 38px; }
-  .phone-notch   { width: 88px; height: 24px; }
-  .phone-notch::before { width: 7px; height: 7px; }
-  .phone-notch::after  { width: 10px; height: 10px; }
+  .phone-clock { font-size: clamp(1.5rem, 7vw, 2rem); }
+  .phone-date  { font-size: 0.48rem; }
+  .phone-carrier { font-size: 0.44rem; }
+  .phone-5g { font-size: 0.38rem; }
+  .phone-notch { width: 80px; height: 24px; }
 
-  .phone-screen {
-    padding: 7px 10px 12px;
-    height: calc(100% - 24px);
-  }
-
-  /* Status bar: slightly smaller text but still readable */
-  .phone-header { padding: 5px 4px 6px; border-radius: 10px; }
-  .phone-shopify-wordmark { font-size: 0.58rem; }
-  .phone-live-badge { font-size: 0.46rem; padding: 2px 6px; }
-
-  /* Stats row */
+  .phone-screen { padding: 0 10px 12px; }
+  .phone-header { padding: 4px 4px 5px; border-radius: 8px; }
+  .phone-shopify-wordmark { font-size: 0.52rem; }
+  .phone-live-badge { font-size: 0.42rem; padding: 2px 6px; }
   .phone-stats-row { padding: 6px 8px; border-radius: 10px; margin-bottom: 6px; }
   .phone-stat-val  { font-size: 0.68rem; }
-  .phone-stat-lbl  { font-size: 0.4rem; }
+  .phone-stat-lbl  { font-size: 0.38rem; }
   .phone-stat-div  { height: 20px; }
-
-  /* Notifications: max 3 visible, smaller text */
   .notif { padding: 6px 8px; border-radius: 8px; gap: 6px; }
   .notif-icon   { font-size: 0.8rem; }
-  .notif-title  { font-size: 0.54rem; }
-  .notif-time   { font-size: 0.42rem; }
-  .notif-body   { font-size: 0.51rem; }
+  .notif-title  { font-size: 0.52rem; }
+  .notif-time   { font-size: 0.4rem; }
+  .notif-body   { font-size: 0.49rem; }
+
+  .ceo-grid { gap: 30px; }
+  .ceo-photo { width: 160px; height: 200px; }
+  .mini-results-grid { grid-template-columns: repeat(2,1fr); gap: 10px; }
+  .mini-result-num { font-size: 1.4rem; }
 }
 
 /* ── Very small phones (≤380px) */
 @media (max-width: 380px) {
   .phone {
     width: 200px;
-    height: 410px;
+    height: 420px;
     border-radius: 36px;
   }
-  .phone-bg-img  { border-radius: 34px; }
-  .phone-overlay { border-radius: 34px; }
-  .phone-shopify-wordmark { font-size: 0.52rem; }
-  .notif-body { font-size: 0.48rem; }
+  .phone-clock { font-size: 1.4rem; }
 }
 
 /* ─── RTL overrides ─────────────────────────────────────────── */
@@ -873,6 +1050,52 @@ footer {
 }
 /* ─── BRANDS TICKER ─────────────────────────────────────────── */
 #brands-ticker {
+  padding: 60px 0; overflow: hidden;
+  background: var(--bg2);
+  border-top: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--glass-border);
+}
+.ticker-label {
+  text-align: center; font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 36px;
+}
+.ticker-rows { display: flex; flex-direction: column; gap: 18px; }
+.ticker-row { overflow: hidden; position: relative; }
+.ticker-row::before, .ticker-row::after {
+  content: ''; position: absolute; top: 0; bottom: 0; width: 100px; z-index: 2; pointer-events: none;
+}
+.ticker-row::before { left: 0; background: linear-gradient(to right, var(--bg2), transparent); }
+.ticker-row::after  { right: 0; background: linear-gradient(to left, var(--bg2), transparent); }
+.ticker-track {
+  display: flex; gap: 16px; align-items: center;
+  width: max-content;
+  direction: ltr; /* always scroll LTR/RTL as designed regardless of page dir */
+}
+.ticker-track.ltr { animation: tickerScrollLTR 28s linear infinite; }
+.ticker-track.rtl { animation: tickerScrollRTL 32s linear infinite; }
+@keyframes tickerScrollLTR {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes tickerScrollRTL {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+.ticker-logo {
+  flex-shrink: 0;
+  background: var(--card); border: 1px solid var(--glass-border);
+  border-radius: 12px; padding: 12px 24px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  transition: border-color 0.2s, background 0.2s;
+  min-width: 140px; height: 56px;
+  font-weight: 800; font-size: 0.82rem; color: var(--text2);
+  letter-spacing: 0.04em; white-space: nowrap;
+}
+.ticker-logo:hover { border-color: var(--accent); background: var(--accent-dim); color: var(--accent); }
+.ticker-logo-emoji { font-size: 1.1rem; }
+.ticker-logo svg { flex-shrink: 0; }
+#brands-ticker {
   padding: 40px 0; background: var(--bg2);
   overflow: hidden; position: relative;
   border-top: 1px solid var(--glass-border);
@@ -941,7 +1164,10 @@ footer {
   border: 1px solid var(--glass-border);
   background: var(--card); position: relative;
   transition: transform 0.3s, box-shadow 0.3s;
+  /* restore document text direction inside each card */
+  direction: var(--card-dir, ltr);
 }
+[dir="rtl"] .store-card { --card-dir: rtl; }
 .store-card:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 20px 50px rgba(255,215,0,0.15); }
 .store-card-img {
   width: 100%; height: 200px; object-fit: cover; display: block;
@@ -952,7 +1178,7 @@ footer {
   display: flex; align-items: center; justify-content: center;
   flex-direction: column; gap: 8px; color: var(--text2); font-size: 0.8rem;
 }
-.store-card-body { padding: 16px; }
+.store-card-body { padding: 16px; direction: inherit; }
 .store-card-num {
   font-size: 0.65rem; font-weight: 800; color: var(--accent);
   letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 4px;
@@ -965,6 +1191,8 @@ footer {
   display: flex; gap: 20px; padding: 12px 4px;
   animation: storeScroll 30s linear infinite;
   width: max-content;
+  /* force LTR so animation works regardless of page direction */
+  direction: ltr;
 }
 .auto-scroll-track:hover { animation-play-state: paused; }
 @keyframes storeScroll {
@@ -1193,6 +1421,7 @@ footer {
     <li><a href="#services"><span class="en">Services</span><span class="ar">الخدمات</span></a></li>
     <li><a href="#results"><span class="en">Results</span><span class="ar">النتائج</span></a></li>
     <li><a href="#ceo"><span class="en">CEO</span><span class="ar">الرئيس</span></a></li>
+    <li><a href="#consultation"><span class="en">Consultation</span><span class="ar">استشارة</span></a></li>
     <li><a href="#booking"><span class="en">Booking</span><span class="ar">الحجز</span></a></li>
   </ul>
   <div class="nav-controls">
@@ -1265,12 +1494,41 @@ footer {
           <div class="phone">
             <img src="ceo.jpeg" alt="CEO" class="phone-bg-img" onerror="this.style.display='none'"/>
             <div class="phone-overlay"></div>
-            <div class="phone-notch"></div>
+
+            <!-- TOP AREA: notch row + nav bar + clock -->
+            <div class="phone-top-area">
+              <!-- Notch row with carrier left, notch center, battery+signal right -->
+              <div class="phone-notch-row">
+                <span class="phone-carrier">Vodafone EG</span>
+                <div class="phone-notch"></div>
+                <div class="phone-status-icons">
+                  <span class="phone-5g">5G</span>
+                  <div class="phone-signal-icon">
+                    <span></span><span></span><span></span><span></span>
+                  </div>
+                  <div class="phone-battery-icon">
+                    <div class="phone-battery-body"><div class="phone-battery-fill"></div></div>
+                    <div class="phone-battery-tip"></div>
+                  </div>
+                </div>
+              </div>
+              <!-- App nav bar -->
+              <div class="phone-nav-bar">
+                <span class="phone-nav-bar-text">ZeQuoz Store</span>
+              </div>
+              <!-- Clock + date in center -->
+              <div class="phone-clock-area">
+                <div class="phone-clock" id="phoneClock">8:30</div>
+                <div class="phone-date" id="phoneDate">Wednesday, March 25</div>
+              </div>
+            </div>
+
+            <!-- Screen content (bottom half) -->
             <div class="phone-screen">
               <div class="phone-header">
                 <div class="phone-shopify-logo">
-                  <svg viewBox="0 0 109 124" fill="none" xmlns="http://www.w3.org/2000/svg" width="15" height="17">
-                    <path d="M95.5 20.7c-.1-.7-.7-1.1-1.2-1.1s-10.5-.8-10.5-.8-7-6.9-7.7-7.6c-.7-.7-2.1-.5-2.6-.3 0 0-1.3.4-3.5 1.1C68.4 8.5 65.2 6 61.2 6c-.1 0-.2 0-.3.1C59.8 4.2 58 3.3 56.5 3.3c-12.7 0-18.8 15.9-20.7 24-4.9 1.5-8.5 2.6-9 2.8-2.8.9-2.9 1-3.2 3.6C23.3 35.8 14 107.3 14 107.3l67.4 11.6 23-5.7S95.6 21.4 95.5 20.7zM68.3 13.3c-1.7.5-3.6 1.1-5.6 1.7v-1.2c0-3.7-.5-6.6-1.4-8.9 3.4.4 5.7 4.4 7 8.4zm-9.8-7.6c.9 2.2 1.5 5.3 1.5 9.5v.6c-3.6 1.1-7.5 2.3-11.4 3.5 2.2-8.4 6.3-12.5 9.9-13.6zm-4.4-1.4c.6 0 1.2.2 1.7.5-4.3 2-8.9 7.1-10.8 17.3l-8.1 2.5C39 16.3 44.5 4.3 54.1 4.3z" fill="#96BF48"/>
+                  <svg viewBox="0 0 109 124" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="16">
+                    <path d="M95.5 20.7c-.1-.7-.7-1.1-1.2-1.1s-10.5-.8-10.5-.8-7-6.9-7.7-7.6c-.7-.7-2.1-.5-2.6-.3 0 0-1.3.4-3.5 1.1C68.4 8.5 65.2 6 61.2 6c-.1 0-.2 0-.3.1C59.8 4.2 58 3.3 56.5 3.3c-12.7 0-18.8 15.9-20.7 24-4.9 1.5-8.5 2.6-9 2.8-2.8.9-2.9 1-3.2 3.6C23.3 35.8 14 107.3 14 107.3l67.4 11.6 23-5.7S95.6 21.4 95.5 20.7z" fill="#96BF48"/>
                     <path d="M94.3 19.6c-.5 0-10.5-.8-10.5-.8s-7-6.9-7.7-7.6c-.3-.3-.6-.4-1-.4l-5.3 108.7 23-5.7S95.6 21.4 95.5 20.7c-.1-.7-.7-1.1-1.2-1.1z" fill="#5E8E3E"/>
                     <path d="M61.2 42.5l-2.8 8.5s-3.1-1.7-6.9-1.7c-5.6 0-5.9 3.5-5.9 4.4 0 4.8 12.5 6.6 12.5 17.9 0 8.8-5.6 14.5-13.2 14.5-9.1 0-13.7-5.7-13.7-5.7l2.4-8s4.8 4.1 8.8 4.1c2.6 0 3.7-2.1 3.7-3.6 0-6.3-10.2-6.6-10.2-16.9 0-8.7 6.2-17.1 18.8-17.1 4.8-.1 7.5 1.6 7.5 1.6z" fill="#fff"/>
                   </svg>
@@ -1278,7 +1536,6 @@ footer {
                 </div>
                 <div class="phone-live-badge">LIVE</div>
               </div>
-              <div class="phone-header-sep"></div>
               <div class="phone-spacer"></div>
               <div class="phone-stats-row">
                 <div class="phone-stat">
@@ -1311,40 +1568,64 @@ footer {
 <!-- ─── BRANDS TICKER ────────────────────────────────────────── -->
 <section id="brands-ticker">
   <p class="ticker-label">
-    <span class="en">Trusted by Leading Egyptian Brands</span>
-    <span class="ar">يثق بنا كبار البراندات المصرية</span>
+    <span class="en">Trusted by Egypt's Top Brands</span>
+    <span class="ar">دائمًا يثق بنا أفضل العلامات التجارية</span>
   </p>
-  <div class="ticker-track" id="tickerTrack">
-    <!-- Fashion -->
-    <div class="ticker-item">Zara Egypt <span class="cat">Fashion</span></div>
-    <div class="ticker-item">Azza Fahmy <span class="cat">Fashion</span></div>
-    <div class="ticker-item">Concrete <span class="cat">Fashion</span></div>
-    <div class="ticker-item">Okhtein <span class="cat">Fashion</span></div>
-    <div class="ticker-item">Hany El Behairy <span class="cat">Fashion</span></div>
-    <!-- Furniture -->
-    <div class="ticker-item">Homzmart <span class="cat">Furniture</span></div>
-    <div class="ticker-item">Mobica <span class="cat">Furniture</span></div>
-    <div class="ticker-item">Dandy Home <span class="cat">Furniture</span></div>
-    <div class="ticker-item">Istikbal Egypt <span class="cat">Furniture</span></div>
-    <!-- Real Estate -->
-    <div class="ticker-item">Palm Hills <span class="cat">Real Estate</span></div>
-    <div class="ticker-item">Emaar Misr <span class="cat">Real Estate</span></div>
-    <div class="ticker-item">Sodic <span class="cat">Real Estate</span></div>
-    <div class="ticker-item">Mountain View <span class="cat">Real Estate</span></div>
-    <!-- duplicate for seamless loop -->
-    <div class="ticker-item">Zara Egypt <span class="cat">Fashion</span></div>
-    <div class="ticker-item">Azza Fahmy <span class="cat">Fashion</span></div>
-    <div class="ticker-item">Concrete <span class="cat">Fashion</span></div>
-    <div class="ticker-item">Okhtein <span class="cat">Fashion</span></div>
-    <div class="ticker-item">Hany El Behairy <span class="cat">Fashion</span></div>
-    <div class="ticker-item">Homzmart <span class="cat">Furniture</span></div>
-    <div class="ticker-item">Mobica <span class="cat">Furniture</span></div>
-    <div class="ticker-item">Dandy Home <span class="cat">Furniture</span></div>
-    <div class="ticker-item">Istikbal Egypt <span class="cat">Furniture</span></div>
-    <div class="ticker-item">Palm Hills <span class="cat">Real Estate</span></div>
-    <div class="ticker-item">Emaar Misr <span class="cat">Real Estate</span></div>
-    <div class="ticker-item">Sodic <span class="cat">Real Estate</span></div>
-    <div class="ticker-item">Mountain View <span class="cat">Real Estate</span></div>
+  <div class="ticker-rows">
+    <!-- Row 1 → LTR -->
+    <div class="ticker-row">
+      <div class="ticker-track ltr" id="tickerTrack">
+        <!-- Set 1 -->
+        <div class="ticker-logo"><span class="ticker-logo-emoji">👗</span> Zara Egypt</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">💎</span> Azza Fahmy</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">🏠</span> Homzmart</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">🏢</span> Palm Hills</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">👜</span> Okhtein</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">🛋️</span> Mobica</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">🏙️</span> Emaar Misr</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">🏗️</span> Sodic</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">👔</span> Concrete</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">🛍️</span> Dandy Home</div>
+        <!-- Duplicate for seamless -->
+        <div class="ticker-logo"><span class="ticker-logo-emoji">👗</span> Zara Egypt</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">💎</span> Azza Fahmy</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">🏠</span> Homzmart</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">🏢</span> Palm Hills</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">👜</span> Okhtein</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">🛋️</span> Mobica</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">🏙️</span> Emaar Misr</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">🏗️</span> Sodic</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">👔</span> Concrete</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">🛍️</span> Dandy Home</div>
+      </div>
+    </div>
+    <!-- Row 2 → RTL (reverse) -->
+    <div class="ticker-row">
+      <div class="ticker-track rtl">
+        <!-- Set 1 -->
+        <div class="ticker-logo"><span class="ticker-logo-emoji">⛰️</span> Mountain View</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">👑</span> Hany El Behairy</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">🪑</span> Istikbal Egypt</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">💄</span> Beauty Hub</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">⚡</span> TechMart EG</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">🌿</span> NaturaCo</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">📱</span> DigiStore</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">🎽</span> SportZone</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">🍃</span> GreenLeaf</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">💍</span> LuxEgypt</div>
+        <!-- Duplicate -->
+        <div class="ticker-logo"><span class="ticker-logo-emoji">⛰️</span> Mountain View</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">👑</span> Hany El Behairy</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">🪑</span> Istikbal Egypt</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">💄</span> Beauty Hub</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">⚡</span> TechMart EG</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">🌿</span> NaturaCo</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">📱</span> DigiStore</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">🎽</span> SportZone</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">🍃</span> GreenLeaf</div>
+        <div class="ticker-logo"><span class="ticker-logo-emoji">💍</span> LuxEgypt</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1662,6 +1943,109 @@ footer {
 
 <div class="divider"></div>
 
+<!-- ─── MINI RESULTS (below CEO) ─────────────────────────────── -->
+<section id="mini-results">
+  <div class="mini-results-inner fade-up">
+    <div class="section-tag" style="justify-content:center;">
+      <span class="en">Our Numbers</span>
+      <span class="ar">أرقامنا</span>
+    </div>
+    <div class="mini-results-grid">
+      <div class="mini-result-card">
+        <div class="mini-result-num">8M+</div>
+        <div class="mini-result-desc"><span class="en">EGP Revenue</span><span class="ar">جنيه إيرادات</span></div>
+      </div>
+      <div class="mini-result-card">
+        <div class="mini-result-num">4.2×</div>
+        <div class="mini-result-desc"><span class="en">Avg. ROAS</span><span class="ar">متوسط ROAS</span></div>
+      </div>
+      <div class="mini-result-card">
+        <div class="mini-result-num">120+</div>
+        <div class="mini-result-desc"><span class="en">Stores Built</span><span class="ar">متجر مُبنى</span></div>
+      </div>
+      <div class="mini-result-card">
+        <div class="mini-result-num">98%</div>
+        <div class="mini-result-desc"><span class="en">Client Retention</span><span class="ar">رضا العملاء</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── CONSULTATION (Media Buyer Consultation) ───────────────── -->
+<section id="consultation">
+  <div class="consult-inner">
+    <div class="fade-up">
+      <div class="consult-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="color:var(--accent)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+        <span class="en">Media Buyer Consultation</span>
+        <span class="ar">استشارة ميديا باير</span>
+        <span class="consult-price-tag">$80</span>
+      </div>
+      <h2 class="consult-title">
+        <span class="en">Book a 1-on-1 Consultation<br><span style="color:var(--accent)">with Eng. Mahmoud</span></span>
+        <span class="ar">احجز استشارة فردية<br><span style="color:var(--accent)">مع مهندس محمود</span></span>
+      </h2>
+      <p class="consult-sub">
+        <span class="en">Get a focused 45-minute session with our lead media buyer. Whether you're just starting out or struggling to scale — walk away with a clear, actionable ad strategy built for your business.</span>
+        <span class="ar">احصل على جلسة مركّزة لمدة 45 دقيقة مع مختص الميديا باي الأول لدينا. سواء كنت مبتدئاً أو تعاني من صعوبة في التوسع — ستخرج باستراتيجية إعلانية واضحة وقابلة للتطبيق مصممة لعملك.</span>
+      </p>
+    </div>
+    <div class="consult-form fade-up" style="transition-delay:0.1s">
+      <div class="input-wrap">
+        <input type="text" class="consult-input" id="consultName"
+          placeholder="Your Name / اسمك" autocomplete="name"/>
+      </div>
+      <div class="input-wrap">
+        <input type="email" class="consult-input" id="consultEmail"
+          placeholder="your@email.com" autocomplete="email"/>
+      </div>
+      <select class="consult-select" id="consultExperience">
+        <option value="" disabled selected>
+          <span class="en">Media Buying Experience / خبرتك في الميديا باي</span>
+        </option>
+        <option value="<1">
+          <span class="en">Less than 1 year</span> / أقل من سنة
+        </option>
+        <option value="1-2">
+          <span class="en">More than 1 year</span> / أكثر من سنة
+        </option>
+        <option value="2+">
+          <span class="en">More than 2 years</span> / أكثر من سنتين
+        </option>
+      </select>
+      <button class="btn-consult" id="consultBtn" onclick="handleConsultation()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span class="en">Book My Consultation – $80</span>
+        <span class="ar">احجز استشارتي – $80</span>
+      </button>
+      <p class="consult-note">
+        <span class="en">🔒 Secure booking. You'll receive a confirmation within 24 hours.</span>
+        <span class="ar">🔒 حجز آمن. ستصل رسالة تأكيد خلال 24 ساعة.</span>
+      </p>
+    </div>
+    <div class="consult-who fade-up" style="transition-delay:0.2s">
+      <div class="consult-avatar">
+        <img src="ceo.jpeg" alt="Mahmoud Hanafy" onerror="this.outerHTML='👨‍💼'"/>
+      </div>
+      <div class="consult-who-text">
+        <div class="consult-who-name">Mahmoud Hanafy — مهندس محمود</div>
+        <div class="consult-who-role">
+          <span class="en">Lead Media Buyer & CEO · ZeQuoz · 7+ years experience</span>
+          <span class="ar">مختص ميديا باي ورئيس تنفيذي · ZeQuoz · خبرة +7 سنوات</span>
+        </div>
+      </div>
+    </div>
+    <div class="consult-success" id="consultSuccess">
+      <span class="en">✅ Consultation booked! Mahmoud will contact you within 24 hours to confirm your session.</span>
+      <span class="ar">✅ تم الحجز! سيتواصل معك مهندس محمود خلال 24 ساعة لتأكيد موعدك.</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
 <!-- ─── BOOKING ───────────────────────────────────────────────── -->
 <section id="booking">
   <div class="container">
@@ -1962,6 +2346,64 @@ function showSuccess() {
 const spinStyle = document.createElement('style');
 spinStyle.textContent = '@keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }';
 document.head.appendChild(spinStyle);
+
+// ── Phone Clock ───────────────────────────────────────────────
+(function updatePhoneClock() {
+  const clockEl = document.getElementById('phoneClock');
+  const dateEl  = document.getElementById('phoneDate');
+  if (!clockEl || !dateEl) return;
+  const now  = new Date();
+  const h    = now.getHours();
+  const m    = now.getMinutes().toString().padStart(2,'0');
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  const h12  = ((h % 12) || 12);
+  clockEl.textContent = `${h12}:${m}`;
+  const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  dateEl.textContent = `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()}`;
+  setTimeout(updatePhoneClock, 10000);
+})();
+
+// ── Consultation Booking ──────────────────────────────────────
+function handleConsultation() {
+  const nameEl  = document.getElementById('consultName');
+  const emailEl = document.getElementById('consultEmail');
+  const expEl   = document.getElementById('consultExperience');
+  const name  = nameEl.value.trim();
+  const email = emailEl.value.trim();
+  const exp   = expEl.value;
+  const btn   = document.getElementById('consultBtn');
+
+  if (!email || !email.includes('@')) {
+    emailEl.focus();
+    emailEl.style.borderColor = '#ff4444';
+    emailEl.style.boxShadow = '0 0 0 3px rgba(255,68,68,0.2)';
+    setTimeout(() => { emailEl.style.borderColor = ''; emailEl.style.boxShadow = ''; }, 2500);
+    return;
+  }
+
+  btn.disabled = true;
+  btn.style.opacity = '0.7';
+  btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="animation:spin 1s linear infinite"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+    <span class="en">Processing…</span><span class="ar">جاري المعالجة…</span>`;
+
+  const expLabels = {'<1':'Less than 1 year / أقل من سنة','1-2':'More than 1 year / أكثر من سنة','2+':'More than 2 years / أكثر من سنتين'};
+  const msgBody = `
+استشارة ميديا باير جديدة 🎯
+━━━━━━━━━━━━━━━━━━━━━━━
+👤 الاسم: ${name || 'لم يذكر'}
+📧 البريد: ${email}
+📊 الخبرة: ${expLabels[exp] || 'لم يحدد'}
+━━━━━━━━━━━━━━━━━━━━━━━
+الرجاء التواصل مع العميل لتأكيد موعد الاستشارة ($80).
+`.trim();
+
+  const subject = encodeURIComponent(`[ZeQuoz Consultation] ميديا باير – ${name || email}`);
+  window.open(`mailto:zeequoz@gmail.com?subject=${subject}&body=${encodeURIComponent(msgBody)}`);
+
+  document.getElementById('consultSuccess').style.display = 'block';
+  btn.style.display = 'none';
+}
 
 // ── Scroll Reveal ─────────────────────────────────────────────
 const observer = new IntersectionObserver((entries) => {
